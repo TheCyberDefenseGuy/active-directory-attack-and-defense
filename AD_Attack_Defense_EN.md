@@ -72,7 +72,7 @@ graph TD
 
 ## 2. Logon Sessions — The Foundation
 
-Before access tokens exist, logon sessions must be created. This is the base of the entire Windows identity model — and the base attackers must understand to exploit it.
+Before access tokens exist, logon sessions must be created. This is the base of the entire Windows identity model and the base attackers must understand to exploit it.
 
 > **Key insight:** A logon session is created when a user successfully authenticates on a system. Every access token is linked back to a logon session via a unique **Logon ID (LUID)**. This relationship is what attackers exploit when performing token manipulation.
 
@@ -104,13 +104,13 @@ sequenceDiagram
 | 9 | NewCredentials | `runas /netonly` | **Token manipulation key indicator** |
 | 10 | RemoteInteractive | RDP | Lateral movement via RDP |
 
-> **UAC Admin Approval Mode:** When an admin logs on interactively, Windows creates **two linked tokens** — a standard filtered token (medium integrity, used by Explorer) and a full admin token (high integrity, used only on elevation). The filtered token has admin group SIDs set to `UseForDenyOnly` and high privileges stripped. Attackers who elevate reclaim the full admin token.
+> **UAC Admin Approval Mode:** When an admin logs on interactively, Windows creates **two linked tokens** a standard filtered token (medium integrity, used by Explorer) and a full admin token (high integrity, used only on elevation). The filtered token has admin group SIDs set to `UseForDenyOnly` and high privileges stripped. Attackers who elevate reclaim the full admin token.
 
 ---
 
 ## 3. Access Tokens Deep Dive
 
-An **access token** is the security object used by Windows' Security Reference Monitor (SRM) to describe the security context of a process or thread. Every process has one — and attackers who can manipulate it can impersonate any user on the system without knowing their password.
+An **access token** is the security object used by Windows' Security Reference Monitor (SRM) to describe the security context of a process or thread. Every process has one and attackers who can manipulate it can impersonate any user on the system without knowing their password.
 
 ```mermaid
 graph LR
@@ -192,10 +192,10 @@ flowchart LR
 
 ### Key Caveats
 
-- `CreateProcess` — child processes **always inherit the primary token**, never the impersonation token
+- `CreateProcess` child processes **always inherit the primary token**, never the impersonation token
 - Cannot impersonate a **higher integrity level** than currently held
-- Threads must call `RevertToSelf()` to drop back to primary context — failure to do so is an indicator of attack
-- **Network logons** (Type 3) generate **impersonation tokens** — not primary tokens
+- Threads must call `RevertToSelf()` to drop back to primary context failure to do so is an indicator of attack
+- **Network logons** (Type 3) generate **impersonation tokens** not primary tokens
 - **Interactive logons** (Type 2) generate **primary tokens**
 
 ---
@@ -507,7 +507,7 @@ mindmap
 
 ## 11. Silver SAML & Entra ID Attacks
 
-Silver SAML targets federated authentication in Entra ID. An attacker with sufficient privileges adds a rogue signing certificate to a service principal, then forges SAML assertions for any user — bypassing MFA.
+Silver SAML targets federated authentication in Entra ID. An attacker with sufficient privileges adds a rogue signing certificate to a service principal, then forges SAML assertions for any user bypassing MFA.
 
 ### 11.1 Silver SAML Attack Flow
 
